@@ -29,6 +29,8 @@ The ADC of the ESP32 is a bit difficult to handle. You have to set the calibraio
 The multiplexing of AIS into the TCP streams is not final. Full AIS message forwarding has to be implemented yet.
 But for OpenCPN it is possible to define a TCP connection (192.168.4.1:2222) and addition UDP (192.168.4.255) to have forwarded NMEA0183 from NMEA2000 plus AIS NMEA0183 from AIS receiver.
 
+One additional hint: I changed the 7805 voltage regulator agains a step-down converter. This is reducing the power consumption. The 7805 would require addtion cooling due to > 1 Watt (ca. 150 mA * 9 Volt).
+
 Further updates will follow.
 
 
