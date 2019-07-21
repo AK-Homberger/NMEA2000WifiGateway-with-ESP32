@@ -12,8 +12,11 @@ The Gateway supports the following functions:
 - Providing a WiFi Access Point for other systemes like tablets or computer (e.g. with OpenCPN)
 - Forwarding navigation information from NMEA2000 to NMEA183 as TCP stream
 - Forwarding serial NMEA0183 AIS information (on RX2) as UDP broadcast stream (for Navionics on tablets, but also for OpenCPN)
-- Sending battery voltage and fridge temperature as NMEA2000 sentence
+- Sending battery voltage and fridge temperature as NMEA2000 sentence (engine dynamic parameter PGN)
+- Battery voltage is measured with the ESP32 ADC
+- Fridge temperature with a Dallas DS1820 OneWire sensor (easily extendable with more sensors)
 - Checking voltage and temperature levels against predefined values and generating alarm via an piezo alarm buzzer
+- Acknowledgement of alarm with a button.
 
 The code is based on the example in the NMEA2000 library.
 In addition to the original examples it also supports Trip and Rudder information. As soon as I understanf GitHub better I will send the additional code to Timo and the NMEA2000 library.
