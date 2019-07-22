@@ -9,7 +9,7 @@ The ESP32 in this project is an ESP32 NODE MCU from AzDelivery. Pin layout for o
 
 The Gateway supports the following functions:
 
-- Providing a WiFi Access Point for other systemes like tablets or computer (e.g. with OpenCPN)
+- Providing a WiFi Access Point for other systems like tablets or computer (e.g. with OpenCPN)
 - Forwarding navigation information from NMEA2000 to NMEA183 as TCP stream
 - Forwarding serial NMEA0183 AIS information (on RX2) as UDP broadcast stream (for Navionics on tablets, but also for OpenCPN)
 - Sending battery voltage and fridge temperature as NMEA2000 sentence (engine dynamic parameter PGN)
