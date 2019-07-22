@@ -112,7 +112,7 @@ const int rs_config = SERIAL_8N1;
 byte buff[MAX_NMEA0183_MESSAGE_SIZE];
 
 
-// UPD broadcast for Navionice, OpenCPN, etc.
+// UPD broadcast for Navionics, OpenCPN, etc.
 const char * udpAddress = "192.168.4.255"; // UDP broadcast address. Should be the network of the ESP32 AP (please check)
 const int udpPort = 2000; // port 2000 lets think Navionics it is an DY WLN10 device
 
