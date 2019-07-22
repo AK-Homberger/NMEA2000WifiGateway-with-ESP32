@@ -22,15 +22,15 @@ The Gateway supports the following functions:
 The code is based on the example in the NMEA2000 library.
 In addition to the original examples it also supports Trip and Rudder information. As soon as I understanf GitHub better, I will send the additional code to Timo for the NMEA2000 library.
 
-For the ESP32 CAN bus I used the "Waveshare SN65HVD230 Can Board" as transceiver. It works well with the ESP32.
-You have to define the correct GPIO ports in the header files for the NMEA2000 library (see documentation). For the AZ Delivery ESP32 NODE MCU the pins are GPIO4 for CAN RX and GPIO2 for CAN TX. The ports may differ for other ESP32 derivates.
+For the ESP32 CAN bus, I used the "Waveshare SN65HVD230 Can Board" as transceiver. It works well with the ESP32.
+You have to define the correct GPIO ports in the header files for the NMEA2000 library (see documentation). For the AZDelivery ESP32 NODE MCU the pins are GPIO4 for CAN RX and GPIO2 for CAN TX. The ports may differ for other ESP32 derivates.
 
-The ADC of the ESP32 is a bit difficult to handle. You have to set the calibraion information in the code according to the real values of the resistors at the ADC input of the ESP 32.
+The ADC of the ESP32 is a bit difficult to handle. You have to set the calibraion information in the code according to the real values of the resistors at the ADC input of the ESP 32 (e.g. 15 for 100K / 27K which gives a reange 0 to 15 Volt).
 
 The multiplexing of AIS into the TCP streams is not final. Full AIS message forwarding has to be implemented yet.
-But for OpenCPN it is possible to define a TCP connection (192.168.4.1:2222) and addition UDP (192.168.4.255) to have forwarded NMEA0183 from NMEA2000 plus AIS NMEA0183 from AIS receiver.
+But for OpenCPN it is possible to define a TCP connection (192.168.4.1:2222) and in addition UDP (192.168.4.255) to have forwarded NMEA0183 from NMEA2000 plus AIS NMEA0183 from AIS receiver.
 
-One additional hint: I changed the 7805 voltage regulator agains a step-down converter. This is reducing the power consumption. The 7805 would require addtion cooling due to > 1 Watt (ca. 150 mA * 9 Volt).
+One additional hint: I changed the 7805 voltage regulator against a step-down converter. This is reducing the power consumption. The 7805 would require addtional cooling due to > 1 Watt (ca. 150 mA * 9 Volt).
 
 Further updates will follow.
 
