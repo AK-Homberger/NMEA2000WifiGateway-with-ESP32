@@ -43,7 +43,7 @@ int buttonPin = 0;    // Button on GPIO 0 to Acknowledge alarm with Buzzer
 int alarmstate=false; // Alarm state (low voltage/temperature)
 int acknowledge=false; // Acknowledge for alarm, Button pressed
 
-OneButton button(buttonPin, false); // The OneButton library is used to debonce the acknowledge button
+OneButton button(buttonPin, false); // The OneButton library is used to debounce the acknowledge button
 
 const uint16_t ServerPort=2222; // Define the port, where served sends data. Use this e.g. on OpenCPN
 const char *ServerIP=""; // Define the IP, what server will use. This has to be within your local network. Leave empty for DHCP
