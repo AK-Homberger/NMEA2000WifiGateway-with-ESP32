@@ -3,7 +3,7 @@ This repository shows how to build a NMEA2000 WiFi Gateway with voltage and temp
 
 This project is in a very early state. KiCad schematics will be added after the current sailing season.
 
-The code is based on the NMEA 2000 library from Timo Tappalainen (https://github.com/ttlappalainen/NMEA2000).
+The code is based on the NMEA 2000 library from Timo Lappalainen (https://github.com/ttlappalainen/NMEA2000).
 
 The ESP32 in this project is an ESP32 NODE MCU from AzDelivery. Pin layout for other ESP32 devices might differ.
 
