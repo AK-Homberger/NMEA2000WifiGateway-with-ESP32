@@ -20,7 +20,7 @@ The Gateway supports the following functions:
 - Acknowledgement of alarm with a button
 
 The code is based on the example in the NMEA2000 library.
-In addition to the original examples it also supports Trip and Rudder information. As soon as I understanf GitHub better I will send the additional code to Timo and the NMEA2000 library.
+In addition to the original examples it also supports Trip and Rudder information. As soon as I understanf GitHub better, I will send the additional code to Timo for the NMEA2000 library.
 
 For the ESP32 CAN bus I used the "Waveshare SN65HVD230 Can Board" as transceiver. It works well with the ESP32.
 You have to define the correct GPIO ports in the header files for the NMEA2000 library (see documentation). For the AZ Delivery ESP32 NODE MCU the pins are GPIO4 for CAN RX and GPIO2 for CAN TX. The ports may differ for other ESP32 derivates.
