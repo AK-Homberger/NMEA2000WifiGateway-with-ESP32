@@ -15,8 +15,9 @@ The Gateway supports the following functions:
 - Sending battery voltage and fridge temperature as NMEA2000 sentence (engine dynamic parameter PGN)
 - Battery voltage is measured with the ESP32 ADC
 - Fridge temperature with a Dallas DS1820 OneWire sensor (easily extendable with more sensors)
-- Checking voltage and temperature levels against predefined values and generating alarm via an piezo alarm buzzer
-- Acknowledgement of alarm with a button.
+- True parallel processing: Reading OneWire sensor as isolated task on second core of ESP32 (sensor reading is blocking for about 750 ms)
+- Checking voltage and temperature levels against predefined values and generating alarm via a piezo alarm buzzer
+- Acknowledgement of alarm with a button
 
 The code is based on the example in the NMEA2000 library.
 In addition to the original examples it also supports Trip and Rudder information. As soon as I understanf GitHub better I will send the additional code to Timo and the NMEA2000 library.
