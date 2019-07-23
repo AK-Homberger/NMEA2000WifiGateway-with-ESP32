@@ -27,12 +27,11 @@ You have to define the correct GPIO ports in the header files for the NMEA2000 l
 
 The ADC of the ESP32 is a bit difficult to handle. You have to set the calibration information in the code according to the real values of the resistors at the ADC input of the ESP 32 (e.g. 15 for 100K / 27K which gives a range from 0 to 15 Volt).
 
-The multiplexing of AIS into the TCP streams is not final. Ensured complete AIS message forwarding has to be implemented yet.
-But for OpenCPN it is possible to define a TCP connection (192.168.4.1:2222) and in addition UDP (192.168.4.255) to have forwarded NMEA0183 from NMEA2000 plus AIS NMEA0183 from AIS receiver.
-
 One additional hint: I replaced the 7805 voltage regulator with a step-down converter. This is reducing the power consumption. The 7805 would require addtional cooling due to power > 1 Watt (ca. 150 mA * 9 Volt).
 
 Further updates will follow.
+
+# Npdate 23.07.19: Version 0.2 fixes the full AIS meaasge forwarding issue. I'm now using the GetMessage function from MNEA0183 library.
 
 
 
