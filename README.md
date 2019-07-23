@@ -31,14 +31,7 @@ One additional hint: I replaced the 7805 voltage regulator with a step-down conv
 
 Further updates will follow.
 
-# Npdate 23.07.19: Version 0.2 fixes the full AIS meaasge forwarding issue. I'm now using the GetMessage function from MNEA0183 library.
+# Updates:
 
-
-
-
-
-
-
-
-
+23.07.19: Version 0.2 fixes the full AIS message forwarding issue. I'm now using the GetMessage function from the MNEA0183 library.
 
