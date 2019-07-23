@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Version 0.1, 21.07.2019, AK-Homberger
+// Version 0.2, 23.07.2019, AK-Homberger
 
 #include <Arduino.h>
 #include <NMEA2000_CAN.h>  // This will automatically choose right CAN library and create suitable NMEA2000 object
@@ -27,9 +27,9 @@
 #include "List.h"
 
 // debug log, set to 1 to enable AIS forward on USB-Serial / 2 for ADC voltage to support calibration
-#define ENABLE_DEBUG_LOG 2
+#define ENABLE_DEBUG_LOG 0
 
-#define ADC_Calibration_Value 15.5 // The real value depends on the true ressitor values for the ADC input (100K / 27 K)
+#define ADC_Calibration_Value 15.5 // The real value depends on the true resistor values for the ADC input (100K / 27 K)
 
 #define HighTempAlarm 12  
 #define LowVoltageAlarm 11
@@ -86,7 +86,7 @@ OneWire oneWire(ONE_WIRE_BUS);
 // Pass our oneWire reference to Dallas Temperature. 
 DallasTemperature sensors(&oneWire);
 
-
+// Currently not really needed, we ony send one message type (Engine)
 #define NavigationSendOffset 0
 #define EnvironmentalSendOffset 40
 #define BatterySendOffset 80
@@ -109,8 +109,11 @@ const int rs_config = SERIAL_8N1;
 // buffer config
 
 #define MAX_NMEA0183_MESSAGE_SIZE 150 // For AIS
-byte buff[MAX_NMEA0183_MESSAGE_SIZE];
+char buff[MAX_NMEA0183_MESSAGE_SIZE];
 
+// NMEA meaage for AIS receiving and multiplexing
+tNMEA0183Msg NMEA0183Msg;
+tNMEA0183 NMEA0183;
 
 // UPD broadcast for Navionics, OpenCPN, etc.
 const char * udpAddress = "192.168.4.255"; // UDP broadcast address. Should be the network of the ESP32 AP (please check)
@@ -135,8 +138,10 @@ void setup() {
 // init USB Serial port
    Serial.begin(115200);
 
-   // init AIS serial port 2
+// init AIS serial port 2
    Serial2.begin(baudrate, rs_config);
+   NMEA0183.Begin(&Serial2,3, baudrate);
+
 
 // init wifi connection
    WiFi.mode(WIFI_AP);
@@ -317,26 +322,28 @@ double ReadVoltage(byte pin){
   return (-0.000000000000016 * pow(reading,4) + 0.000000000118171 * pow(reading,3)- 0.000000301211691 * pow(reading,2)+ 0.001109019271794 * reading + 0.034143524634089)*1000;
 } // Added an improved polynomial, use either, comment out as required
 
+
+
   
 void loop() {
-unsigned int size = 0;
-// read data from serial 2 and send to wifi as UDP multicast and to TCP clients
+unsigned int size;
 
-  while ((size = Serial2.available())) {
-           size = (size >= MAX_NMEA0183_MESSAGE_SIZE ? MAX_NMEA0183_MESSAGE_SIZE : size);
-           Serial2.readBytes(buff, size);
-           
-           #if ENABLE_DEBUG_LOG == 1
-              Serial.write(buff, size);              
-           #endif           
+   if (NMEA0183.GetMessage(NMEA0183Msg)) {  // Get AIS NMEA sentences from serial2
 
-           udp.beginPacket(udpAddress, udpPort);
-           udp.write(buff, size);
-           udp.endPacket();
-  
-           // SendBufToClients((char*)buff); // Uncomment this for sending AIS to TCP. This implementation is not clean because it is not always ensured that the full AIS message has been received. But it is working.
+     SendNMEA0183Message(NMEA0183Msg);      // Send to TCP clients
+
+     NMEA0183Msg.GetMessage(buff, MAX_NMEA0183_MESSAGE_SIZE); // send to buffer
+
+     #if ENABLE_DEBUG_LOG == 1
+              Serial.println(buff);
+     #endif           
+
+     size=strlen(buff);     
+     udp.beginPacket(udpAddress, udpPort);  // Send to UDP
+     udp.write((byte*)buff, size);
+     udp.endPacket();
    }
-  
+
   voltage=((voltage*15)+(ReadVoltage(ADCpin)*ADC_Calibration_Value/4096)) /16; // This implements a low pass filter to eliminate spike for ADC readings
   
   SendN2kEngine();
