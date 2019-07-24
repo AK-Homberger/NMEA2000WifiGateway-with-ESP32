@@ -1,5 +1,5 @@
 # NMEA2000 Wifi Gateway with ESP32
-This repository shows how to build a NMEA2000 WiFi Gateway with voltage and temperature alarms.
+This repository shows how to build a NMEA2000 WiFi Gateway with AIS multiplexing and voltage/temperature alarms.
 
 This project is in a very early state. KiCad schematics will be added after the current sailing season.
 
