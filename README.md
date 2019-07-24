@@ -17,14 +17,14 @@ The Gateway supports the following functions:
 - Battery voltage is measured with the ESP32 ADC.
 - Fridge temperature with a Dallas DS1820 OneWire sensor (easily extendable with more sensors).
 - True parallel processing: Reading OneWire sensor as isolated task on second core of ESP32 (sensor reading is blocking for about 750 ms).
-- Checking voltage and temperature levels against predefined values and generating alarm via a piezo alarm buzzer
+- Checking voltage and temperature levels against predefined values and generating an alarm with a piezo alarm buzzer
 - Acknowledgement of alarm with a button.
 
 The code is based on the examples in the NMEA2000 library.
-In addition to the original examples it also supports Trip and Rudder information. As soon as I understand GitHub better, I will send the additional code to the NMEA2000 library for integration.
+In addition to the original examples, it also supports Trip and Rudder information. As soon as I understand GitHub better, I will send the additional code to the NMEA2000 library for integration.
 
 For the ESP32 CAN bus, I used the "Waveshare SN65HVD230 Can Board" as transceiver. It works well with the ESP32.
-You have to define the correct GPIO ports in the header files for the NMEA2000 library (see documentation). For the AZDelivery ESP32 NODE MCU the pins are GPIO4 for CAN RX and GPIO2 for CAN TX. The ports may differ for other ESP32 derivates.
+You have to define the correct GPIO ports in the header files for the NMEA2000 library (see documentation). For the AZDelivery ESP32 NODE MCU, the pins are GPIO4 for CAN RX and GPIO2 for CAN TX. The ports may differ for other ESP32 derivates.
 
 The ADC of the ESP32 is a bit difficult to handle. You have to set the calibration information in the code according to the real values of the resistors at the ADC input of the ESP 32 (e.g. 15 for 100K / 27K which gives a range from 0 to 15 Volt).
 
