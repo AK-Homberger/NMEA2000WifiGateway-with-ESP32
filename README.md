@@ -13,7 +13,7 @@ The Gateway supports the following functions:
 - Forwarding navigation information from NMEA2000 to NMEA183 as TCP stream.
 - Forwarding serial NMEA0183 AIS information (on RX2) as UDP broadcast stream (for Navionics on tablets, but also for OpenCPN)
 - Mutiplexing AIS information into TCP streams (to support applications that can handle only one (TCP) connection.
-- Sending battery voltage and fridge temperature as NMEA2000 sentence (engine dynamic parameter PGN, My eS75 Ramarine MFD shows this as cooling temperature and alternator voltage).
+- Sending battery voltage and fridge temperature as NMEA2000 sentence (engine dynamic parameter PGN, my eS75 Ramarine MFD shows this as cooling temperature and alternator voltage).
 - Battery voltage is measured with the ESP32 ADC.
 - Fridge temperature with a Dallas DS1820 OneWire sensor (easily extendable with more sensors).
 - True parallel processing: Reading OneWire sensor as isolated task on second core of ESP32 (sensor reading is blocking for about 750 ms).
