@@ -22,8 +22,10 @@ The Gateway supports the following functions:
 - Acknowledgement of alarm with a button.
 - Showing fridge temperature in web browser (nice JavaScript gauge).
 
-The code is based on the examples in the NMEA2000 library.
-In addition to the original examples, it also supports Trip and Rudder information. As soon as I understand GitHub better, I will send the additional code to the NMEA2000 library for integration.
+The code is based on the examples in the NMEA2000 / NMEA0183 libraries.
+In addition to the original examples, it also supports Trip, Rudder and WaterTemp information. As soon as I understand GitHub better, I will send the additional code to the NMEA2000 library for integration.
+
+Caution: The current NMEA0183 library from Timo is not fully compliant to the NMEA0183 standard. Leading zeros for Lattitude/Longitude are missing. Some applications might have problems with the missing zeros (like the current verion of the Loogbook App from Florian Kriesche). I have updated the library and informed also Timo Lappalainen to update the library in GitHub (see issues register for the NMEA0183 library for details).
 
 For the ESP32 CAN bus, I used the "Waveshare SN65HVD230 Can Board" as transceiver. It works well with the ESP32.
 You have to define the correct GPIO ports in the header files for the NMEA2000 library (see documentation). For the AZDelivery ESP32 NODE MCU, the pins are GPIO4 for CAN RX and GPIO2 for CAN TX. The ports may differ for other ESP32 derivates.
