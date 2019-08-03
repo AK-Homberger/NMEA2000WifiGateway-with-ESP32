@@ -32,7 +32,7 @@
 #define ENABLE_DEBUG_LOG 0 // debug log, set to 1 to enable AIS forward on USB-Serial / 2 for ADC voltage to support calibration
 #define UDP_Forwarding 0   // Set to 1 for forwarding AIS from serial2 to UDP brodcast
 #define HighTempAlarm 12   // Alarm level for fridge temperature (higher)
-#define LowVoltageAlarm 11 / Alarm level for battery voltage (lower)
+#define LowVoltageAlarm 11 // Alarm level for battery voltage (lower)
 
 #define ADC_Calibration_Value 34.3 // The real value depends on the true resistor values for the ADC input (100K / 27 K)
 
