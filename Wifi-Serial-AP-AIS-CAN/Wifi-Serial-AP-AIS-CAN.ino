@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Version 0.2, 23.07.2019, AK-Homberger
+// Version 0.4, 03.08.2019, AK-Homberger
 
 #include <Arduino.h>
 #include <NMEA2000_CAN.h>  // This will automatically choose right CAN library and create suitable NMEA2000 object
@@ -20,19 +20,21 @@
 #include <memory>
 #include <N2kMessages.h>
 #include <WiFi.h>
+#include <WebServer.h>
 #include <OneWire.h>
 #include <OneButton.h>
 #include <DallasTemperature.h>
 #include "N2kDataToNMEA0183.h"
 #include "List.h"
+#include "index_html.h"
 
-// debug log, set to 1 to enable AIS forward on USB-Serial / 2 for ADC voltage to support calibration
-#define ENABLE_DEBUG_LOG 0
 
-#define ADC_Calibration_Value 15.5 // The real value depends on the true resistor values for the ADC input (100K / 27 K)
+#define ENABLE_DEBUG_LOG 0 // debug log, set to 1 to enable AIS forward on USB-Serial / 2 for ADC voltage to support calibration
+#define UDP_Forwarding 0   // Set to 1 for forwarding AIS from serial2 to UDP brodcast
+#define HighTempAlarm 12   // Alarm level for fridge temperature (higher)
+#define LowVoltageAlarm 11 / Alarm level for battery voltage (lower)
 
-#define HighTempAlarm 12  
-#define LowVoltageAlarm 11
+#define ADC_Calibration_Value 34.3 // The real value depends on the true resistor values for the ADC input (100K / 27 K)
 
 // Wifi AP
 const char *ssid = "MyESP32";
@@ -86,6 +88,8 @@ OneWire oneWire(ONE_WIRE_BUS);
 // Pass our oneWire reference to Dallas Temperature. 
 DallasTemperature sensors(&oneWire);
 
+WebServer webserver(80);
+
 // Currently not really needed, we ony send one message type (Engine)
 #define NavigationSendOffset 0
 #define EnvironmentalSendOffset 40
@@ -102,11 +106,11 @@ float temp=0;
 // Task handle for OneWire read (Core 0 on ESP32)
 TaskHandle_t Task1;
 
-// serial port 2 config (GPIO 16)
+// Serial port 2 config (GPIO 16)
 const int baudrate = 38400;
 const int rs_config = SERIAL_8N1;
 
-// buffer config
+// Buffer config
 
 #define MAX_NMEA0183_MESSAGE_SIZE 150 // For AIS
 char buff[MAX_NMEA0183_MESSAGE_SIZE];
@@ -119,7 +123,7 @@ tNMEA0183 NMEA0183;
 const char * udpAddress = "192.168.4.255"; // UDP broadcast address. Should be the network of the ESP32 AP (please check)
 const int udpPort = 2000; // port 2000 lets think Navionics it is an DY WLN10 device
 
-// create UDP instance
+// Create UDP instance
 WiFiUDP udp;
   
 void debug_log(char* str) {
@@ -135,15 +139,15 @@ void setup() {
    
    button.attachClick(clickedIt);
 
-// init USB Serial port
+// Init USB Serial port
    Serial.begin(115200);
 
-// init AIS serial port 2
+// Init AIS serial port 2
    Serial2.begin(baudrate, rs_config);
    NMEA0183.Begin(&Serial2,3, baudrate);
 
 
-// init wifi connection
+// Init wifi connection
    WiFi.mode(WIFI_AP);
    WiFi.softAP(ssid, password);
 
@@ -157,6 +161,14 @@ void setup() {
 // Start TCP Server
    server.begin();
 
+// Start Web Server
+   webserver.on("/", Ereignis_Index);
+   webserver.on("/gauge.min.js", Ereignis_js);
+   webserver.on("/ADC.txt", Ereignis_ADC);
+   webserver.onNotFound(handleNotFound);
+
+  webserver.begin();
+  Serial.println("HTTP Server gestarted");
   
 // Reserve enough buffer for sending all messages. This does not work on small memory devices like Uno or Mega
   
@@ -168,7 +180,7 @@ void setup() {
 // Set Product information
    NMEA2000.SetProductInformation("00000001", // Manufacturer's Model serial code
                                  100, // Manufacturer's product code
-                                 "My Boat Name",  // Manufacturer's Model ID
+                                 "Boat Name",  // Manufacturer's Model ID
                                  "1.0.2.25 (2019-07-07)",  // Manufacturer's Software version code
                                  "1.0.2.0 (2019-07-07)" // Manufacturer's Model version
                                  );
@@ -207,17 +219,39 @@ void setup() {
 }
 
 // This task runs isolated on core 0 because sensors.requestTemperatures() is slow and blocking for about 750 ms
-void GetTemperature( void * parameter) {
-  float tmp=0;
-  for(;;) {
-  sensors.requestTemperatures(); // Send the command to get temperatures
-  tmp = sensors.getTempCByIndex(0);
-  if(tmp!=-127) temp=tmp;
-  delay(200);
+  void GetTemperature( void * parameter) {
+    float tmp=0;
+    for(;;) {
+    sensors.requestTemperatures(); // Send the command to get temperatures
+    tmp = sensors.getTempCByIndex(0);
+    if(tmp!=-127) temp=tmp;
+    delay(200);
+    }
   }
-}
 
+//*****************************************************************************
 
+  void Ereignis_Index()    // Wenn "http://<ip address>/" aufgerufen wurde
+  {
+    webserver.send(200, "text/html", indexHTML);  //dann Index Webseite senden
+  }
+
+  void Ereignis_js()      // Wenn "http://<ip address>/gauge.min.js" aufgerufen wurde
+  {
+    webserver.send(200, "text/html", gauge);     // dann gauge.min.js senden 
+  }
+
+  void Ereignis_ADC()     // Wenn "http://<ip address>/ADC.txt" aufgerufen wurde
+  {
+
+    webserver.sendHeader("Cache-Control", "no-cache");  // Sehr wichtig !!!!!!!!!!!!!!!!!!!
+    webserver.send(200, "text/plain", String (temp));   // dann text mit ADC Wert senden 
+  }
+
+  void handleNotFound()
+  {
+    webserver.send(404, "text/plain", "File Not Found\n\n");
+  }
 
 
 //*****************************************************************************
@@ -323,11 +357,16 @@ double ReadVoltage(byte pin){
 } // Added an improved polynomial, use either, comment out as required
 
 
+void clickedIt() {  // Button was pressed
+  acknowledge = !acknowledge;
+ }
 
   
 void loop() {
 unsigned int size;
 
+   webserver.handleClient();
+  
    if (NMEA0183.GetMessage(NMEA0183Msg)) {  // Get AIS NMEA sentences from serial2
 
      SendNMEA0183Message(NMEA0183Msg);      // Send to TCP clients
@@ -338,10 +377,12 @@ unsigned int size;
               Serial.println(buff);
      #endif           
 
-     size=strlen(buff);     
-     udp.beginPacket(udpAddress, udpPort);  // Send to UDP
-     udp.write((byte*)buff, size);
-     udp.endPacket();
+     #if UDP_Forwarding == 1
+       size=strlen(buff);     
+       udp.beginPacket(udpAddress, udpPort);  // Send to UDP
+       udp.write((byte*)buff, size);
+       udp.endPacket();
+     #endif   
    }
 
   voltage=((voltage*15)+(ReadVoltage(ADCpin)*ADC_Calibration_Value/4096)) /16; // This implements a low pass filter to eliminate spike for ADC readings
@@ -351,37 +392,20 @@ unsigned int size;
   NMEA2000.ParseMessages();
   tN2kDataToNMEA0183.Update();
 
-  // Dummy to empty input buffer to avoid board to stuck with e.g. NMEA Reader
+// Dummy to empty input buffer to avoid board to stuck with e.g. NMEA Reader
   if ( Serial.available() ) { Serial.read(); } 
 
 // Alarm handling
   button.tick();
 
   #if ENABLE_DEBUG_LOG == 2
-      Serial.print("Spannung:" ); Serial.println(voltage);              
-      //Serial.print("Temperatur: ");Serial.println(temp);              
+      Serial.print("Voltage:" ); Serial.println(voltage);              
+      //Serial.print("Temperature: ");Serial.println(temp);              
       Serial.println("");
   #endif           
-
   
   alarmstate=false;
   if (temp > HighTempAlarm || voltage < LowVoltageAlarm) {alarmstate=true;}
   if (alarmstate==true && acknowledge==false) {digitalWrite(buzzerPin, HIGH);} else {digitalWrite(buzzerPin, LOW);}
-
 }
 
-void clickedIt() {
-  acknowledge = !acknowledge;
- }
-
-
-
-
-
-
-
-
-
-
-
-   
