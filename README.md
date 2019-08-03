@@ -10,9 +10,9 @@ The ESP32 in this project is an ESP32 NODE MCU from AzDelivery. Pin layout for o
 The Gateway supports the following functions:
 
 - Providing a WiFi Access Point for other systems like tablets or computer (e.g. with OpenCPN).
-- Forwarding navigation information from NMEA2000 to NMEA183 as TCP stream (including log, water temp, and rudder information)
+- Forwarding navigation information from NMEA2000 to NMEA183 as TCP stream (including log, water temp, and rudder information).
 - Calculating TWS/TWD from apparent wind information and heading/COG). This allows use of OpenCPN WindHistory Dashbord instument.
-- Forwarding serial NMEA0183 AIS information (on RX2) as UDP broadcast stream (for Navionics on tablets, but also for OpenCPN)
+- Forwarding serial NMEA0183 AIS information (on RX2) as UDP broadcast stream (for Navionics on tablets, but also for OpenCPN).
 - Mutiplexing AIS information into TCP streams (to support applications that can handle only one (TCP) connection.
 - Sending battery voltage and fridge temperature as NMEA2000 sentence (engine dynamic parameter PGN, my eS75 Ramarine MFD shows this as cooling temperature and alternator voltage).
 - Battery voltage is measured with the ESP32 ADC.
