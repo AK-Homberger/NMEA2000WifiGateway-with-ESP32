@@ -20,7 +20,7 @@ The Gateway supports the following functions:
 - True parallel processing: Reading OneWire sensor as isolated task on second core of ESP32 (sensor reading is blocking for about 750 ms).
 - Checking voltage and temperature levels against predefined values and generating an alarm with a piezo alarm buzzer
 - Acknowledgement of alarm with a button.
-- Showing fridge temperature in web browser (nice JavaScript gauge)
+- Showing fridge temperature in web browser (nice JavaScript gauge).
 
 The code is based on the examples in the NMEA2000 library.
 In addition to the original examples, it also supports Trip and Rudder information. As soon as I understand GitHub better, I will send the additional code to the NMEA2000 library for integration.
