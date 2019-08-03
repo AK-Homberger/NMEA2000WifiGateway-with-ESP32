@@ -40,6 +40,11 @@
 const char *ssid = "MyESP32";
 const char *password = "testtest"; 
 
+/* Put IP Address details */
+IPAddress local_ip(192,168,15,1);  // This adress will be recogised by Navionics as Vesper Marine Device, with TCP port 39150
+IPAddress gateway(192,168,15,1);
+IPAddress subnet(255,255,255,0);
+
 int buzzerPin = 12;   // Buzzer on GPIO 12
 int buttonPin = 0;    // Button on GPIO 0 to Acknowledge alarm with Buzzer
 int alarmstate=false; // Alarm state (low voltage/temperature)
@@ -120,7 +125,7 @@ tNMEA0183Msg NMEA0183Msg;
 tNMEA0183 NMEA0183;
 
 // UPD broadcast for Navionics, OpenCPN, etc.
-const char * udpAddress = "192.168.4.255"; // UDP broadcast address. Should be the network of the ESP32 AP (please check)
+const char * udpAddress = "192.168.15.255"; // UDP broadcast address. Should be the network of the ESP32 AP (please check)
 const int udpPort = 2000; // port 2000 lets think Navionics it is an DY WLN10 device
 
 // Create UDP instance
@@ -150,7 +155,10 @@ void setup() {
 // Init wifi connection
    WiFi.mode(WIFI_AP);
    WiFi.softAP(ssid, password);
+   WiFi.softAPConfig(local_ip, gateway, subnet);
 
+   delay(100);
+  
    IPAddress IP = WiFi.softAPIP();
    Serial.print("AP IP address: ");
    Serial.println(IP);
