@@ -41,9 +41,12 @@ const char *ssid = "MyESP32";
 const char *password = "testtest"; 
 
 /* Put IP Address details */
-IPAddress local_ip(192,168,15,1);  // This adress will be recogised by Navionics as Vesper Marine Device, with TCP port 39150
+IPAddress local_ip(192,168,15,1);  // This address will be recogised by Navionics as Vesper Marine Device, with TCP port 39150
 IPAddress gateway(192,168,15,1);
 IPAddress subnet(255,255,255,0);
+
+const uint16_t ServerPort=2222; // Define the port, where served sends data. Use this e.g. on OpenCPN
+
 
 int buzzerPin = 12;   // Buzzer on GPIO 12
 int buttonPin = 0;    // Button on GPIO 0 to Acknowledge alarm with Buzzer
@@ -51,9 +54,6 @@ int alarmstate=false; // Alarm state (low voltage/temperature)
 int acknowledge=false; // Acknowledge for alarm, Button pressed
 
 OneButton button(buttonPin, false); // The OneButton library is used to debounce the acknowledge button
-
-const uint16_t ServerPort=2222; // Define the port, where served sends data. Use this e.g. on OpenCPN
-const char *ServerIP=""; // Define the IP, what server will use. This has to be within your local network. Leave empty for DHCP
 
 const size_t MaxClients=10;
 bool SendNMEA0183Conversion=true; // Do we send NMEA2000 -> NMEA0183 conversion
