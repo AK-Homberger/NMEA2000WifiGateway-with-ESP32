@@ -40,7 +40,7 @@
 const char *ssid = "MyESP32";
 const char *password = "testtest"; 
 
-/* Put IP Address details */
+// Define IP address details
 IPAddress local_ip(192,168,15,1);  // This address will be recogised by Navionics as Vesper Marine Device, with TCP port 39150
 IPAddress gateway(192,168,15,1);
 IPAddress subnet(255,255,255,0);
@@ -109,7 +109,7 @@ WebServer webserver(80);
 
 #define SlowDataUpdatePeriod 1000  // Time between CAN Messages sent
 
-// Battery Voltage is connected GPIO 34 (Analog ADC1_CH6) 
+// Battery voltage is connected GPIO 34 (Analog ADC1_CH6) 
 const int ADCpin = 34;
 float voltage=0;
 float temp=0;
@@ -144,7 +144,7 @@ void setup() {
    
    button.attachClick(clickedIt);
 
-// Init USB Serial port
+// Init USB serial port
    Serial.begin(115200);
 
 // Init AIS serial port 2
@@ -166,7 +166,7 @@ void setup() {
 // Start OneWire
    sensors.begin();
 
-// Start TCP Server
+// Start TCP server
    server.begin();
 
 // Start Web Server
