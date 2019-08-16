@@ -36,7 +36,7 @@ One additional hint: I replaced the 7805 voltage regulator with a step-down conv
 
 Further updates will follow.
 
-![SD card pins](https://github.com/AK-Homberger/NMEA2000-VoyageDataRecorder/blob/master/ESP32-SD.png)
+![Prototype](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/Gateway%20Prototype.JPG)
 
 # Updates:
 
