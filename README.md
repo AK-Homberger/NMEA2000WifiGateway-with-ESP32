@@ -16,7 +16,7 @@ The Gateway supports the following functions:
 - Mutiplexing AIS information into TCP streams (to support applications that can handle only one (TCP) connection.
 - Sending battery voltage and fridge temperature as NMEA2000 sentence (engine dynamic parameter PGN, my eS75 Ramarine MFD shows this as cooling temperature and alternator voltage).
 - Battery voltage is measured with the ESP32 ADC.
-- Fridge temperature with a Dallas DS1820 OneWire sensor (easily extendable with more sensors).
+- Fridge temperature with a Dallas DS18B20 OneWire sensor (easily extendable with more sensors).
 - True parallel processing: Reading OneWire sensor as isolated task on second core of ESP32 (sensor reading is blocking for about 750 ms).
 - Checking voltage and temperature levels against predefined values and generating an alarm with a piezo alarm buzzer
 - Acknowledgement of alarm with a button.
