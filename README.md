@@ -28,7 +28,7 @@ In addition to the original examples, it also supports Trip, Rudder and WaterTem
 Caution: The current NMEA0183 library from Timo is not fully compliant to the NMEA0183 standard. Leading zeros for Lattitude/Longitude are missing. Some applications might have problems with the missing zeros (like the current verion of the Loogbook App from Florian Kriesche). I have updated the library and informed also Timo Lappalainen to update the library in GitHub (see issues register for the NMEA0183 library for details).
 
 For the ESP32 CAN bus, I used the "Waveshare SN65HVD230 Can Board" as transceiver. It works well with the ESP32.
-You have to define the correct GPIO ports in the header files for the NMEA2000 library (see documentation). For the AZDelivery ESP32 NODE MCU, the pins are GPIO4 for CAN RX and GPIO2 for CAN TX. The ports may differ for other ESP32 derivates.
+You have to define the correct GPIO ports in the header files for the NMEA2000 library (see documentation). For the Gateway, I use the pins GPIO4 for CAN RX and GPIO2 for CAN TX. This is because GPIO5 is used for SC card interface. If you don't need the SD card interface you can leve the GPIOS to standard pins (GPIO04/GPIO05).
 
 The ADC of the ESP32 is a bit difficult to handle. You have to set the calibration information in the code according to the real values of the resistors at the ADC input of the ESP 32 (e.g. 15 for 100K / 27K which gives a range from 0 to 15 Volt).
 
