@@ -24,13 +24,15 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <NMEA0183.h>
 #include <NMEA2000.h>
 
+#include "BoatData.h"
+
 //------------------------------------------------------------------------------
 class tN2kDataToNMEA0183 : public tNMEA2000::tMsgHandler {
 public:
   using tSendNMEA0183MessageCallback=void (*)(const tNMEA0183Msg &NMEA0183Msg);
     
 protected:
-  static const unsigned long RMCPeriod=1000;
+  static const unsigned long RMCPeriod=500;
   double Latitude;
   double Longitude;
   double Altitude;
@@ -39,19 +41,33 @@ protected:
   double COG;
   double SOG;
   double STW;
-  double WindSpeed;
-  double WindAngle;
   
+  double TWS;
+  double TWA; 
+  double TWD;
+  
+  double AWS;
+  double AWA;
+  double AWD;
+
+  double MaxAws;
+  double MaxTws;
+
+  double RudderPosition;
+  double WaterTemperature;
+  double WaterDepth;
+    
   uint32_t TripLog;
   uint32_t Log;
-  
+
+  uint16_t DaysSince1970;
+  double SecondsSinceMidnight;
+    
   unsigned long LastHeadingTime;
   unsigned long LastCOGSOGTime;
   unsigned long LastPositionTime;
   unsigned long LastPosSend;
   unsigned long LastWindTime;
-  uint16_t DaysSince1970;
-  double SecondsSinceMidnight;
   unsigned long NextRMCSend;
 
   tNMEA0183 *pNMEA0183;
@@ -93,6 +109,5 @@ public:
   void SetSendNMEA0183MessageCallback(tSendNMEA0183MessageCallback _SendNMEA0183MessageCallback) {
     SendNMEA0183MessageCallback=_SendNMEA0183MessageCallback;
   }
-  void Update();
+  long Update(tBoatData *BoatData);
 };
-
