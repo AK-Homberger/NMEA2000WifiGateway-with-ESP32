@@ -41,6 +41,9 @@ Further updates will follow.
 ![TempGauge](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/TempGauge.png)
 
 # Updates:
+
+14.10.19: Version 0.7. Added JSON interface on port 90, Added uniquw ID
+
 16.09.19: Added GGA sentence in N2kDataToNMEA0183.cpp
 
 03.08.19: Version 0.4. Added rudder, log information. Calculate TWS/TWD from apparent wind, heading and COG. Added web gauge for fridge temperature (web browser, port 80).
