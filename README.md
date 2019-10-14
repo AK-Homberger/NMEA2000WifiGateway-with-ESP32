@@ -43,7 +43,7 @@ Further updates will follow.
 
 # Updates:
 
-14.10.19: Version 0.7. Added JSON interface on port 90, Added uniquw ID
+14.10.19: Version 0.7. Added JSON interface on port 90. Added unique ID
 
 16.09.19: Added GGA sentence in N2kDataToNMEA0183.cpp
 
