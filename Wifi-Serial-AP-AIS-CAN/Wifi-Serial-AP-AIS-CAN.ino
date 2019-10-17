@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Version 0.7, 15.10.2019, AK-Homberger
+// Version 0.8, 17.10.2019, AK-Homberger
 
 #include <Arduino.h>
 #include <NMEA2000_CAN.h>  // This will automatically choose right CAN library and create suitable NMEA2000 object
@@ -152,7 +152,6 @@ void debug_log(char* str) {
 void setup() {
   
   uint8_t chipid[6];
-  char ID[10] = "01";
   uint32_t id =0;
   int i=0;  
 
@@ -206,18 +205,17 @@ void setup() {
   NMEA2000.SetN2kCANSendFrameBufSize(250);
 
   esp_efuse_read_mac(chipid);
-  snprintf(ID, sizeof(ID), "%X", chipid);
-  for (i=0;i<6;i++) id += chipid[i];
-  
+  for (i=0;i<6;i++) id += (chipid[i]<<(7*i));
+
   // Set product information
-  NMEA2000.SetProductInformation(ID, // Manufacturer's Model serial code
+  NMEA2000.SetProductInformation("1", // Manufacturer's Model serial code
                                  100, // Manufacturer's product code
-                                 "Boat Name",  // Manufacturer's Model ID
+                                 "NMEA 2000 Gateway",  // Manufacturer's Model ID
                                  "1.0.2.25 (2019-07-07)",  // Manufacturer's Software version code
                                  "1.0.2.0 (2019-07-07)" // Manufacturer's Model version
                                 );
   // Set device information
-  NMEA2000.SetDeviceInformation(id, // Unique number. Use e.g. Serial number.
+  NMEA2000.SetDeviceInformation(id, // Unique number. Use e.g. Serial number. Id is generated from MAC-Address
                                 132, // Device function=Analog to NMEA 2000 Gateway. See codes on http://www.nmea.org/Assets/20120726%20nmea%202000%20class%20&%20function%20codes%20v%202.00.pdf
                                 25, // Device class=Inter/Intranetwork Device. See codes on  http://www.nmea.org/Assets/20120726%20nmea%202000%20class%20&%20function%20codes%20v%202.00.pdf
                                 2046 // Just choosen free from code list on http://www.nmea.org/Assets/20121020%20nmea%202000%20registration%20list.pdf
@@ -402,14 +400,14 @@ void handle_json() {
   // Do we have a client?
   if (!client) return;
 
-  Serial.println(F("New client"));
+  // Serial.println(F("New client"));
 
   // Read the request (we ignore the content in this example)
   while (client.available()) client.read();
 
   // Allocate JsonBuffer
   // Use arduinojson.org/assistant to compute the capacity.
-  StaticJsonBuffer<500> jsonBuffer;
+  StaticJsonBuffer<800> jsonBuffer;
 
   // Create the root object
   JsonObject& root = jsonBuffer.createObject();
@@ -440,9 +438,9 @@ void handle_json() {
   root["BatteryVoltage"] = voltage;
   
 
-  Serial.print(F("Sending: "));
-  root.printTo(Serial);
-  Serial.println();
+  // Serial.print(F("Sending: "));
+  // root.printTo(Serial);
+  // Serial.println();
 
   // Write response headers
   client.println("HTTP/1.0 200 OK");
