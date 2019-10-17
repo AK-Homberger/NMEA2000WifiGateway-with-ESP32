@@ -42,8 +42,9 @@ Further updates will follow.
 ![TempGauge](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/TempGauge.png)
 
 # Updates:
+17.10.19: Version 0.8. Increase JSON buffer improved ID calculation.
 
-14.10.19: Version 0.7. Added JSON interface on port 90. Added unique ID
+14.10.19: Version 0.7. Added JSON interface on port 90. Added unique ID.
 
 16.09.19: Added GGA sentence in N2kDataToNMEA0183.cpp
 
