@@ -28,7 +28,7 @@ public:
     RudderPosition=0;
     WaterTemperature=0;
     WaterDepth=0;
-    Variation=7.0;
+    Variation=0;
     Altitude=0;
     GPSTime=0;
     DaysSince1970=0;    
