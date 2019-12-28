@@ -42,6 +42,8 @@ Further updates will follow.
 ![TempGauge](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/TempGauge.png)
 
 # Updates:
+11.12.19: Version 0.9: Added CAN pin definition in code. No need to change settings in include file of library.
+
 17.10.19: Version 0.8. Increase JSON buffer improved ID calculation.
 
 14.10.19: Version 0.7. Added JSON interface on port 90. Added unique ID.
