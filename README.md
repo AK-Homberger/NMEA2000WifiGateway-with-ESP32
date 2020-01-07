@@ -18,7 +18,7 @@ The Gateway supports the following functions:
 - Checking voltage and temperature levels against predefined values and generating an alarm with a piezo alarm buzzer
 - Acknowledgement of alarm with a button.
 - Showing fridge temperature in web browser (nice JavaScript gauge).
-- JSON interface on port 90 to request NMEA2000 data via JSON request (see M5Stack Diplay repository for example on usage).
+- JSON interface on port 90 to request NMEA2000 data via JSON request (see M5Stack Display repository for example on usage).
 
 The code is based on the NMEA 2000 / NMEA0183 libraries from Timo Lappalainen (https://github.com/ttlappalainen).
 Download and install the libraries from GitHub link above:
