@@ -20,7 +20,7 @@ The Gateway supports the following functions:
 - Showing fridge temperature in web browser (nice JavaScript gauge).
 - JSON interface on port 90 to request NMEA2000 data via JSON request (see M5Stack Diplay repository for example on usage).
 
-The code is based on the NMEA 2000 / NMEA0183 libraries from Timo Lappalainen (https://github.com/ttlappalainen/NMEA2000).
+The code is based on the NMEA 2000 / NMEA0183 libraries from Timo Lappalainen (https://github.com/ttlappalainen).
 Download and install the libraries from GitHub link above:
 
 - NMEA2000-master
