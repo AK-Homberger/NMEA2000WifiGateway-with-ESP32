@@ -27,7 +27,7 @@ Download and install the libraries from GitHub link above:
 - NMEA2000_esp32-master
 - NMEA0183-master
 
-The Gateway is using the following additional libraries:
+The Gateway is using the following additional libraries (to be installed with the Arduiono IDE Library Manager):
 
 - OneWire
 - OneButton
