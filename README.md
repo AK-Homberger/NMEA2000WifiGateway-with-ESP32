@@ -5,6 +5,19 @@ This project is in a very early state. KiCad schematics will be added after the 
 
 The code is based on the NMEA 2000 library from Timo Lappalainen (https://github.com/ttlappalainen/NMEA2000).
 
+Download and install the libraries from GitHub link above:
+
+- NMEA2000-master
+- NMEA2000_esp32-master
+- NMEA0183-master
+
+The Gateway is using the following additional libraries:
+
+- OneWire
+- OneButton
+- DallasTemperature
+- ArduinoJson
+
 The ESP32 in this project is an ESP32 NODE MCU from AzDelivery. Pin layout for other ESP32 devices might differ.
 
 The Gateway supports the following functions:
@@ -25,8 +38,6 @@ The Gateway supports the following functions:
 
 The code is based on the examples in the NMEA2000 / NMEA0183 libraries.
 In addition to the original examples, it also supports Trip, Rudder and WaterTemp information. As soon as I understand GitHub better, I will send the additional code to the NMEA2000 library for integration.
-
-Caution: The current NMEA0183 library from Timo is not fully compliant to the NMEA0183 standard. Leading zeros for Lattitude/Longitude are missing. Some applications might have problems with the missing zeros (like the current verion of the Loogbook App from Florian Kriesche). I have updated the library and informed also Timo Lappalainen to update the library in GitHub (see issues register for the NMEA0183 library for details).
 
 For the ESP32 CAN bus, I used the "Waveshare SN65HVD230 Can Board" as transceiver. It works well with the ESP32.
 You have to define the correct GPIO ports in the header files for the NMEA2000 library (see documentation). For the Gateway, I use the pins GPIO4 for CAN RX and GPIO2 for CAN TX. This is because GPIO5 is used for SC card interface. If you don't need the SD card interface you can leve the GPIOS to standard pins (GPIO04/GPIO05).
