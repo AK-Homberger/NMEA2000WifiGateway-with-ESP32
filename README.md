@@ -23,9 +23,9 @@ The Gateway supports the following functions:
 The code is based on the NMEA 2000 / NMEA0183 libraries from Timo Lappalainen (https://github.com/ttlappalainen).
 Download and install the libraries from GitHub link above:
 
-- NMEA2000-master
-- NMEA2000_esp32-master
-- NMEA0183-master
+- NMEA2000
+- NMEA2000_esp32
+- NMEA0183
 
 The Gateway is using the following additional libraries (to be installed with the Arduiono IDE Library Manager):
 
