@@ -2,6 +2,8 @@
 This repository shows how to build a NMEA2000 WiFi Gateway with AIS multiplexing and voltage/temperature alarms.
 The ESP32 in this project is an ESP32 NODE MCU from AzDelivery. Pin layout for other ESP32 devices might differ.
 
+![Prototype](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/Gateway%20Prototype.JPG)
+
 The Gateway supports the following functions:
 
 - Providing a WiFi Access Point for other systems like tablets or computer (e.g. with OpenCPN).
@@ -41,7 +43,7 @@ One additional hint: I replaced the 7805 voltage regulator with a step-down conv
 
 Further updates will follow.
 
-![Prototype](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/Gateway%20Prototype.JPG)
+
 
 ![TempGauge](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/TempGauge.png)
 
