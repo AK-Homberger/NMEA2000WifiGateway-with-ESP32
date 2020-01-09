@@ -39,11 +39,7 @@ For the Gateway, I use the pins GPIO4 for CAN RX and GPIO2 for CAN TX. This is b
 
 The ADC of the ESP32 is a bit difficult to handle. You have to set the calibration information in the code according to the real values of the resistors at the ADC input of the ESP 32 (e.g. 15 for 100K / 27K which gives a range from 0 to 15 Volt).
 
-One additional hint: I replaced the 7805 voltage regulator with a step-down converter. This is reducing the power consumption. The 7805 would require addtional cooling due to power > 1 Watt (ca. 150 mA * 9 Volt).
-
-Further updates will follow.
-
-https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/NMEA2000WifiGateway.pdf
+The KiCad schematics is available here:![Schamatics]https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/NMEA2000WifiGateway.pdf
 
 
 ![TempGauge](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/TempGauge.png)
