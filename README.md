@@ -41,7 +41,8 @@ The ADC of the ESP32 is a bit difficult to handle. You have to set the calibrati
 
 The KiCad schematics is available here: ![Schematics](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/NMEA2000WifiGateway.pdf
 
-Fridgfe temperature is also shown with a nice gauge:
+Fridge temperature is also shown with a nice web gauge:
+
 ![TempGauge](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/TempGauge.png)
 
 # Updates:
