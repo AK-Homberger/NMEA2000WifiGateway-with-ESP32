@@ -43,6 +43,7 @@ One additional hint: I replaced the 7805 voltage regulator with a step-down conv
 
 Further updates will follow.
 
+![Schematics](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/NMEA2000WifiGateway.pdf)
 
 
 ![TempGauge](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/TempGauge.png)
