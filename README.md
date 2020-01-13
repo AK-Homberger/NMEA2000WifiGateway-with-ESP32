@@ -37,6 +37,8 @@ The Gateway is using the following additional libraries (to be installed with th
 For the ESP32 CAN bus, I used the "Waveshare SN65HVD230 Can Board" as transceiver. It works well with the ESP32.
 For the Gateway, I use the pins GPIO4 for CAN RX and GPIO2 for CAN TX. This is because GPIO5 is used for SC card interface. If you don't need the SD card interface you can leave the GPIOS to standard pins (GPIO04/GPIO05).
 
+The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter (D24V10F5, https://www.pololu.com/product/2831).
+
 The ADC of the ESP32 is a bit difficult to handle. You have to set the calibration information in the code according to the real values of the resistors at the ADC input of the ESP 32 (e.g. 15 for 100K / 27K which gives a range from 0 to 15 Volt).
 
 ![Schematics](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/NMEA%202000%20WiFiGateway.png)
