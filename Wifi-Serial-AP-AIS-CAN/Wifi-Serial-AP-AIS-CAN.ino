@@ -44,7 +44,7 @@
 
 // Wifi AP
 const char *ssid = "MyESP32";
-const char *password = "jenelvem";
+const char *password = "ijsselmeer";
 
 // Put IP address details here
 IPAddress local_ip(192, 168, 15, 1); // This address will be recogised by Navionics as Vesper Marine Device, with TCP port 39150
