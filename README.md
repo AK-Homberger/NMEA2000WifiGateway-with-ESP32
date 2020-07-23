@@ -32,7 +32,7 @@ The Gateway is using the following additional libraries (to be installed with th
 - OneWire
 - OneButton
 - DallasTemperature
-- ArduinoJson (Please use version 5.13.5, Version 6.x.x. is not working)
+- ArduinoJson (Please use current version 6.x.x from now on)
 
 For the ESP32 CAN bus, I used the "Waveshare SN65HVD230 Can Board" as transceiver. It works well with the ESP32.
 For the Gateway, I use the pins GPIO4 for CAN RX and GPIO2 for CAN TX. This is because GPIO5 is used for SC card interface. If you don't need the SD card interface you can leave the GPIOS to standard pins (GPIO04/GPIO05).
