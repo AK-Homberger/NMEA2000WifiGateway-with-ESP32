@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Version 1.0, 17.07.2020, AK-Homberger
+// Version 1.1, 23.07.2020, AK-Homberger
 
 #define ESP32_CAN_TX_PIN GPIO_NUM_2  // Set CAN TX port to 2 
 #define ESP32_CAN_RX_PIN GPIO_NUM_4  // Set CAN RX port to 4
@@ -44,7 +44,7 @@
 
 // Wifi AP
 const char *ssid = "MyESP32";
-const char *password = "password";
+const char *password = "jenelvem";
 
 // Put IP address details here
 IPAddress local_ip(192, 168, 15, 1); // This address will be recogised by Navionics as Vesper Marine Device, with TCP port 39150
@@ -213,7 +213,7 @@ void setup() {
   // Set product information
   NMEA2000.SetProductInformation("1", // Manufacturer's Model serial code
                                  100, // Manufacturer's product code
-                                 "NMEA 2000 Gateway",  // Manufacturer's Model ID
+                                 "FishKiss2",  // Manufacturer's Model ID
                                  "1.0.2.25 (2019-07-07)",  // Manufacturer's Software version code
                                  "1.0.2.0 (2019-07-07)" // Manufacturer's Model version
                                 );
@@ -411,10 +411,7 @@ void handle_json() {
 
   // Allocate JsonBuffer
   // Use arduinojson.org/assistant to compute the capacity.
-  StaticJsonBuffer<800> jsonBuffer;
-
-  // Create the root object
-  JsonObject& root = jsonBuffer.createObject();
+  StaticJsonDocument<800> root;
 
   root["Latitude"] = BoatData.Latitude;
   root["Longitude"] = BoatData.Longitude;
@@ -442,9 +439,9 @@ void handle_json() {
   root["BatteryVoltage"] = voltage;
   
 
-  // Serial.print(F("Sending: "));
-  // root.printTo(Serial);
-  // Serial.println();
+  //Serial.print(F("Sending: "));
+  //serializeJson(root, Serial);
+  //Serial.println();
 
   // Write response headers
   client.println("HTTP/1.0 200 OK");
@@ -453,7 +450,7 @@ void handle_json() {
   client.println();
 
   // Write JSON document
-  root.prettyPrintTo(client);
+  serializeJsonPretty(root, client);
 
   // Disconnect
   client.stop();
