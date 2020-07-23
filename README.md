@@ -50,6 +50,8 @@ Fridge temperature is also shown with a nice web gauge:
 ![TempGauge](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/TempGauge.png)
 
 # Updates:
+23.07.20: Version 1.1: Moved to new JSON library version 6.x.x.
+
 23.07.20: Version 1.0: Changed task 0 priority to 0 (see Issues) and corrcted TWA calculation.
 
 11.12.19: Version 0.9: Added CAN pin definition in code. No need to change settings in include file of library.
