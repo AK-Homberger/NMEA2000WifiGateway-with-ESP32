@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Version 0.9, 11.12.2019, AK-Homberger
+// Version 1.0, 17.07.2020, AK-Homberger
 
 #define ESP32_CAN_TX_PIN GPIO_NUM_2  // Set CAN TX port to 2 
 #define ESP32_CAN_RX_PIN GPIO_NUM_4  // Set CAN RX port to 4
@@ -199,7 +199,7 @@ void setup() {
   webserver.onNotFound(handleNotFound);
 
   webserver.begin();
-  Serial.println("HTTP Server gestarted");
+  Serial.println("HTTP server started");
 
   // Reserve enough buffer for sending all messages. This does not work on small memory devices like Uno or Mega
 
@@ -244,7 +244,7 @@ void setup() {
     "Task1", /* Name of the task */
     10000,  /* Stack size in words */
     NULL,  /* Task input parameter */
-    2,  /* Priority of the task */
+    0,  /* Priority of the task */
     &Task1,  /* Task handle. */
     0); /* Core where the task should run */
 
@@ -256,9 +256,10 @@ void GetTemperature( void * parameter) {
   float tmp = 0;
   for (;;) {
     sensors.requestTemperatures(); // Send the command to get temperatures
+    vTaskDelay(100);
     tmp = sensors.getTempCByIndex(0);
     if (tmp != -127) temp = tmp;
-    delay(200);
+    vTaskDelay(100);
   }
 }
 
