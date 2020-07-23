@@ -72,16 +72,15 @@ long tN2kDataToNMEA0183::Update(tBoatData *BoatData) {
   BoatData->Altitude=Altitude;
   BoatData->Heading=Heading * radToDeg;
   BoatData->COG=COG * radToDeg;
-  BoatData->SOG=SOG * radToDeg;
-  BoatData->STW=STW * 3600.0/1852.0;;
-  BoatData->AWS=AWS * radToDeg;
-  BoatData->TWS=TWS * 3600.0/1852.0;;
+  BoatData->SOG=SOG * 3600.0/1852.0;
+  BoatData->STW=STW * 3600.0/1852.0;
+  BoatData->AWS=AWS * 3600.0/1852.0;
+  BoatData->TWS=TWS * 3600.0/1852.0;
   BoatData->MaxAws=MaxAws * 3600.0/1852.0;;
   BoatData->MaxTws=MaxTws * 3600.0/1852.0;;
   BoatData->AWA=AWA * radToDeg;
   BoatData->TWA=TWA * radToDeg;
   BoatData->TWD=TWD * radToDeg;
-  
   BoatData->TripLog=TripLog / 1825.0;
   BoatData->Log=Log / 1825.0;
   BoatData->RudderPosition=RudderPosition * radToDeg;
@@ -242,7 +241,7 @@ void tN2kDataToNMEA0183::HandleWind(const tN2kMsg &N2kMsg) {
         if (AWS > MaxAws) MaxAws=AWS;
        }
 
-    if ( NMEA0183SetMWV(NMEA0183Msg, WindAngle, NMEA0183Reference , WindSpeed)) SendMessage(NMEA0183Msg);
+    if ( NMEA0183SetMWV(NMEA0183Msg, WindAngle*radToDeg, NMEA0183Reference , WindSpeed)) SendMessage(NMEA0183Msg);
 
     if (WindReference == N2kWind_Apparent && SOG != N2kDoubleNA) { // Lets calculate and send TWS/TWA if SOG is available
       
