@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Version 1.1, 23.07.2020, AK-Homberger
+// Version 1.2, 24.07.2020, AK-Homberger
 
 #define ESP32_CAN_TX_PIN GPIO_NUM_2  // Set CAN TX port to 2 
 #define ESP32_CAN_RX_PIN GPIO_NUM_4  // Set CAN RX port to 4
@@ -174,10 +174,9 @@ void setup() {
   // Init wifi connection
   WiFi.mode(WIFI_AP);
   WiFi.softAP(ssid, password);
-  WiFi.softAPConfig(local_ip, gateway, subnet);
-
   delay(100);
-
+  WiFi.softAPConfig(local_ip, gateway, subnet);
+ 
   IPAddress IP = WiFi.softAPIP();
   Serial.print("AP IP address: ");
   Serial.println(IP);
