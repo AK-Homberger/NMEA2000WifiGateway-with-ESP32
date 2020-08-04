@@ -12,21 +12,21 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Version 1.2, 24.07.2020, AK-Homberger
+// Version 1.3, 04.08.2020, AK-Homberger
 
-#define ESP32_CAN_TX_PIN GPIO_NUM_2  // Set CAN TX port to 2 
+#define ESP32_CAN_TX_PIN GPIO_NUM_5  // Set CAN TX port to 5 (Caution!!! Pin 2 before)
 #define ESP32_CAN_RX_PIN GPIO_NUM_4  // Set CAN RX port to 4
 
 #include <Arduino.h>
 #include <NMEA2000_CAN.h>  // This will automatically choose right CAN library and create suitable NMEA2000 object
 #include <Seasmart.h>
-#include <memory>
 #include <N2kMessages.h>
 #include <WiFi.h>
 #include <WebServer.h>
 #include <OneWire.h>
 #include <OneButton.h>
 #include <DallasTemperature.h>
+#include <Preferences.h>
 #include <ArduinoJson.h>
 
 #include "N2kDataToNMEA0183.h"
@@ -42,27 +42,41 @@
 
 #define ADC_Calibration_Value 34.3 // The real value depends on the true resistor values for the ADC input (100K / 27 K)
 
-// Wifi AP
-const char *ssid = "MyESP32";
-const char *password = "password";
+#define WLAN_CLIENT 0  // Set to 1 to enable client network. 0 to act as AP only
+
+// Wifi cofiguration Client and Access Point
+const char *AP_ssid = "MyESP32";  // ESP32 as AP
+const char *CL_ssid = "MyWLAN";   // ESP32 as client in network
+
+const char *AP_password = "appassw";   // AP password
+const char *CL_password = "clientpw";  // Client password
 
 // Put IP address details here
-IPAddress local_ip(192, 168, 15, 1); // This address will be recogised by Navionics as Vesper Marine Device, with TCP port 39150
-IPAddress gateway(192, 168, 15, 1);
-IPAddress subnet(255, 255, 255, 0);
+IPAddress AP_local_ip(192, 168, 15, 1);  // Static address for AP
+IPAddress AP_gateway(192, 168, 15, 1);
+IPAddress AP_subnet(255, 255, 255, 0);
+
+IPAddress CL_local_ip(192, 168, 1, 10);  // Static address for Client Network. Please adjust to your AP IP and DHCP range!
+IPAddress CL_gateway(192, 168, 1, 1);
+IPAddress CL_subnet(255, 255, 255, 0);
+
+int wifiType = 0; // 0= Client 1= AP
 
 const uint16_t ServerPort = 2222; // Define the port, where server sends data. Use this e.g. on OpenCPN. Use 39150 for Navionis AIS
 
 // UPD broadcast for Navionics, OpenCPN, etc.
-const char * udpAddress = "192.168.15.255"; // UDP broadcast address. Should be the network of the ESP32 AP (please check)
+const char * udpAddress = "192.168.15.255"; // UDP broadcast address. Should be the network of the ESP32 AP (please check!)
 const int udpPort = 2000; // port 2000 lets think Navionics it is an DY WLN10 device
 
 // Create UDP instance
 WiFiUDP udp;
 
 // Struct to update BoatData. See BoatData.h for content
-tBoatData BoatData;  
+tBoatData BoatData;
 
+int NodeAddress;  // To store last Node Address
+
+Preferences preferences;             // Nonvolatile storage on ESP32 - To store LastDeviceAddress
 
 int buzzerPin = 12;   // Buzzer on GPIO 12
 int buttonPin = 0;    // Button on GPIO 0 to acknowledge alarm with buzzer
@@ -114,12 +128,7 @@ DallasTemperature sensors(&oneWire);
 
 WebServer webserver(80);
 
-// Currently not really needed, we ony send one message type (Engine)
-#define NavigationSendOffset 0
-#define EnvironmentalSendOffset 40
-#define BatterySendOffset 80
 #define MiscSendOffset 120
-
 #define SlowDataUpdatePeriod 1000  // Time between CAN Messages sent
 
 // Battery voltage is connected GPIO 34 (Analog ADC1_CH6)
@@ -153,10 +162,11 @@ void debug_log(char* str) {
 
 
 void setup() {
-  
+
   uint8_t chipid[6];
-  uint32_t id =0;
-  int i=0;  
+  uint32_t id = 0;
+  int i = 0;
+  int wifi_retry = 0;
 
   pinMode(buzzerPin, OUTPUT);
   pinMode(buttonPin, INPUT_PULLUP);
@@ -170,16 +180,40 @@ void setup() {
   Serial2.begin(baudrate, rs_config);
   NMEA0183.Begin(&Serial2, 3, baudrate);
 
+  if (WLAN_CLIENT == 1) {
+    Serial.println("Start WLAN Client");         // WiFi Mode Client
 
-  // Init wifi connection
-  WiFi.mode(WIFI_AP);
-  WiFi.softAP(ssid, password);
-  delay(100);
-  WiFi.softAPConfig(local_ip, gateway, subnet);
- 
-  IPAddress IP = WiFi.softAPIP();
-  Serial.print("AP IP address: ");
-  Serial.println(IP);
+    WiFi.config(CL_local_ip, CL_gateway, CL_subnet, CL_gateway);
+    delay(100);
+    WiFi.begin(CL_ssid, CL_password);
+
+    while (WiFi.status() != WL_CONNECTED  && wifi_retry < 20) {         // Check connection, try 10 seconds
+      wifi_retry++;
+      delay(500);
+      Serial.print(".");
+    }
+  }
+
+  if (WiFi.status() != WL_CONNECTED) {   // No client connection start AP
+    // Init wifi connection
+    Serial.println("Start WLAN AP");         // WiFi Mode AP
+    WiFi.mode(WIFI_AP);
+    WiFi.softAP(AP_ssid, AP_password);
+    delay(100);
+    WiFi.softAPConfig(AP_local_ip, AP_gateway, AP_subnet);
+    IPAddress IP = WiFi.softAPIP();
+    Serial.println("");
+    Serial.print("AP IP address: ");
+    Serial.println(IP);
+    wifiType = 1;
+
+  } else {  // Wifi Client connection was sucessfull
+
+    Serial.println("");
+    Serial.println("WiFi client connected");
+    Serial.println("IP client address: ");
+    Serial.println(WiFi.localIP());
+  }
 
   // Start OneWire
   sensors.begin();
@@ -207,7 +241,7 @@ void setup() {
   NMEA2000.SetN2kCANSendFrameBufSize(250);
 
   esp_efuse_read_mac(chipid);
-  for (i=0;i<6;i++) id += (chipid[i]<<(7*i));
+  for (i = 0; i < 6; i++) id += (chipid[i] << (7 * i));
 
   // Set product information
   NMEA2000.SetProductInformation("1", // Manufacturer's Model serial code
@@ -218,7 +252,7 @@ void setup() {
                                 );
   // Set device information
   NMEA2000.SetDeviceInformation(id, // Unique number. Use e.g. Serial number. Id is generated from MAC-Address
-                                132, // Device function=Analog to NMEA 2000 Gateway. See codes on http://www.nmea.org/Assets/20120726%20nmea%202000%20class%20&%20function%20codes%20v%202.00.pdf
+                                130, // Device function=Analog to NMEA 2000 Gateway. See codes on http://www.nmea.org/Assets/20120726%20nmea%202000%20class%20&%20function%20codes%20v%202.00.pdf
                                 25, // Device class=Inter/Intranetwork Device. See codes on  http://www.nmea.org/Assets/20120726%20nmea%202000%20class%20&%20function%20codes%20v%202.00.pdf
                                 2046 // Just choosen free from code list on http://www.nmea.org/Assets/20121020%20nmea%202000%20registration%20list.pdf
                                );
@@ -226,7 +260,14 @@ void setup() {
   // If you also want to see all traffic on the bus use N2km_ListenAndNode instead of N2km_NodeOnly below
 
   NMEA2000.SetForwardType(tNMEA2000::fwdt_Text); // Show in clear text. Leave uncommented for default Actisense format.
-  NMEA2000.SetMode(tNMEA2000::N2km_ListenAndNode, 32);
+
+  preferences.begin("nvs", false);                          // Open nonvolatile storage (nvs)
+  NodeAddress = preferences.getInt("LastNodeAddress", 32);  // Read stored last NodeAddress, default 32
+  preferences.end();
+
+  Serial.printf("NodeAddress=%d\n", NodeAddress);
+
+  NMEA2000.SetMode(tNMEA2000::N2km_ListenAndNode, NodeAddress);
 
   NMEA2000.ExtendTransmitMessages(TransmitMessages);
   NMEA2000.ExtendReceiveMessages(ReceiveMessages);
@@ -428,7 +469,7 @@ void handle_json() {
   root["TripLog"] = BoatData.TripLog;
   root["Log"] = BoatData.Log;
   root["RudderPosition"] = BoatData.RudderPosition;
-  root["WaterTemperature"]= BoatData.WaterTemperature;
+  root["WaterTemperature"] = BoatData.WaterTemperature;
   root["WaterDepth"] = BoatData.WaterDepth;
   root["Variation"] = BoatData.Variation;
   root["Altitude"] = BoatData.Altitude;
@@ -436,7 +477,7 @@ void handle_json() {
   root["DaysSince1970"] = BoatData.DaysSince1970;
   root["FridgeTeperature"] = temp;
   root["BatteryVoltage"] = voltage;
-  
+
 
   //Serial.print(F("Sending: "));
   //serializeJson(root, Serial);
@@ -459,6 +500,7 @@ void handle_json() {
 
 void loop() {
   unsigned int size;
+  int wifi_retry;
 
   webserver.handleClient();
   handle_json();
@@ -486,6 +528,15 @@ void loop() {
   SendN2kEngine();
   CheckConnections();
   NMEA2000.ParseMessages();
+
+  int SourceAddress = NMEA2000.GetN2kSource();
+  if (SourceAddress != NodeAddress) { // Save potentially changed Source Address to NVS memory
+    preferences.begin("nvs", false);
+    preferences.putInt("LastNodeAddress", SourceAddress);
+    preferences.end();
+    Serial.printf("Address Change: New Address=%d\n", SourceAddress);
+  }
+
   tN2kDataToNMEA0183.Update(&BoatData);
 
   // Dummy to empty input buffer to avoid board to stuck with e.g. NMEA Reader
@@ -510,5 +561,22 @@ void loop() {
     digitalWrite(buzzerPin, HIGH);
   } else {
     digitalWrite(buzzerPin, LOW);
+  }
+
+  if (wifiType == 0) {                                          // Check connection if working as client
+    wifi_retry = 0;
+    while (WiFi.status() != WL_CONNECTED && wifi_retry < 5 ) {  // Connection lost, 5 tries to reconnect
+      wifi_retry++;
+      Serial.println("WiFi not connected. Try to reconnect");
+      WiFi.disconnect();
+      WiFi.mode(WIFI_OFF);
+      WiFi.mode(WIFI_STA);
+      WiFi.begin(CL_ssid, CL_password);
+      delay(100);
+    }
+    if (wifi_retry >= 5) {
+      Serial.println("\nReboot");                                  // Did not work -> restart ESP32
+      ESP.restart();
+    }
   }
 }
