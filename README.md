@@ -7,6 +7,7 @@ The ESP32 in this project is an ESP32 NODE MCU from AzDelivery. Pin layout for o
 The Gateway supports the following functions:
 
 - Providing a WiFi Access Point for other systems like tablets or computer (e.g. with OpenCPN).
+- Alternatively it can also connect as client to a WLAN network (set WLAN_CLIENT to 1 to enable).
 - Forwarding navigation information from NMEA2000 to NMEA0183 as TCP stream (including log, water temp, and rudder information).
 - Calculating TWS/TWD from apparent wind information and heading/COG). This allows use of OpenCPN WindHistory Dashbord instument.
 - Forwarding serial NMEA0183 AIS information (on RX2) as UDP broadcast stream (for Navionics on tablets, but also for OpenCPN).
@@ -35,7 +36,10 @@ The Gateway is using the following additional libraries (to be installed with th
 - ArduinoJson (Please use current version 6.x.x from now on)
 
 For the ESP32 CAN bus, I used the "Waveshare SN65HVD230 Can Board" as transceiver. It works well with the ESP32.
-For the Gateway, I use the pins GPIO4 for CAN RX and GPIO2 for CAN TX. This is because GPIO5 is used for SC card interface. If you don't need the SD card interface you can leave the GPIOS to standard pins (GPIO04/GPIO05).
+For the Gateway, I use the pins GPIO4 for CAN RX and GPIO5 for CAN TX. The standard configuration of the NMEA2000 library would block the Serial2 connection used for AIS.
+
+# !!!Caution!!! 
+The former versions used Pin2 for TX. But I noticed problems with the NMEA2000 bus during reboot/programming of the ESP32. It looks like pin 2 is used during reboot and also during programming. A reboot confused the wind instrument (no TWS). With this new configuration evrything works without problems.
 
 The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter (D24V10F5, https://www.pololu.com/product/2831).
 
@@ -50,6 +54,8 @@ Fridge temperature is also shown with a nice web gauge:
 ![TempGauge](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/TempGauge.png)
 
 # Updates:
+04.08.20: Version 1.3: Changed CAN_TX to 5. Added WLAN client mode. Store last Node Address.
+
 24.07.20: Version 1.2: Fixed AP setting problem (sometimes 192.168.4.1 was set after reboot).
 
 23.07.20: Version 1.1: Moved to new JSON library version 6.x.x.
