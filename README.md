@@ -73,6 +73,8 @@ Fridge temperature is also shown with a nice web gauge:
 
 
 # Updates:
+01.11.20: Version 1.3: Added KiCAD files.
+
 04.08.20: Version 1.3: Changed CAN_TX to 5. Added WLAN client mode. Store last Node Address.
 
 24.07.20: Version 1.2: Fixed AP setting problem (sometimes 192.168.4.1 was set after reboot).
