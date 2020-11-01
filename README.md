@@ -45,9 +45,11 @@ The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter (D24V10F5, https:
 
 The ADC of the ESP32 is a bit difficult to handle. You have to set the calibration information in the code according to the real values of the resistors at the ADC input of the ESP 32 (e.g. 15 for 100K / 27K which gives a range from 0 to 15 Volt).
 
+Schematics and PCB details are in the KiCAD folder.
+
 ![Schematics](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/KiCAD/ESP32WifiAisTempVolt2/ESP32WifiAisTempVolt2.png)
 
-
+![PCB](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/KiCAD/ESP32WifiAisTempVolt2/ESP32WifiAisTempVolt2-PCB.png)
 
 Fridge temperature is also shown with a nice web gauge:
 
@@ -66,7 +68,6 @@ Fridge temperature is also shown with a nice web gauge:
 - DS18B20 [Link](https://www.reichelt.com/shelly-temperatur-sensor-ds18b20-shelly-ds18b20-p287127.html?&trstct=pos_1&nbc=1)
 - Connector 3-pol [Link](https://www.reichelt.com/index.html?ACTION=446&LA=0&nbc=1&q=akl%20101-03)
 - Connector 2-pol [Link](https://www.reichelt.com/index.html?ACTION=446&LA=446&nbc=1&q=akl%20101-02)
-- PCB universal set [Link](https://www.amazon.de/70Stk-Doppelseitig-Lochrasterplatte-Kit-Lochrasterplatine/dp/B07BDKG68Q/ref=sr_1_6?adgrpid=70589021505&dchild=1&gclid=EAIaIQobChMI07qXtuaN7AIVjentCh3xPg80EAAYASAAEgK_-_D_BwE&hvadid=352809599274&hvdev=c&hvlocphy=9043858&hvnetw=g&hvqmt=e&hvrand=11402952735368332074&hvtargid=kwd-300896600841&hydadcr=26892_1772693&keywords=lochrasterplatine&qid=1601363175&sr=8-6&tag=googhydr08-21)
 
 
 
