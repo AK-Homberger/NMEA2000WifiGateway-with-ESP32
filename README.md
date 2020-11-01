@@ -66,8 +66,8 @@ Fridge temperature is also shown with a nice web gauge:
 - Diode 1N4148 [Link](https://www.reichelt.de/schalt-diode-100-v-150-ma-do-35-1n-4148-p1730.html?search=1n4148)
 - Push button [Link](https://www.reichelt.de/miniatur-drucktaster-0-5a-24vac-1x-ein-rt-t-250a-rt-p31772.html?&trstct=pol_12&nbc=1)
 - DS18B20 [Link](https://www.reichelt.com/shelly-temperatur-sensor-ds18b20-shelly-ds18b20-p287127.html?&trstct=pos_1&nbc=1)
-- Connector 3-pol [Link](https://www.reichelt.com/index.html?ACTION=446&LA=0&nbc=1&q=akl%20101-03)
-- Connector 2-pol [Link](https://www.reichelt.com/index.html?ACTION=446&LA=446&nbc=1&q=akl%20101-02)
+- Connector 3-pol [Link](https://www.reichelt.com/de/en/3-pin-terminal-strip-spacing-3-5-akl-059-03-p36599.html?&nbc=1)
+- Connector 2-pol (*2)[Link](https://www.reichelt.com/de/en/2-pin-terminal-strip-spacing-3-5-akl-059-02-p36598.html?&nbc=1)
 
 
 
