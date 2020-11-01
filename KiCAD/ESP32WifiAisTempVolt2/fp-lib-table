@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name esp32_devkit_38Pins-master)(type KiCad)(uri C:/Users/Andreas/Documents/KiCad/libraries/esp32_devkit_38Pins-master.pretty)(options "")(descr ""))
+  (lib (name ESP32_Devkit_38Pins)(type KiCad)(uri C:/Users/Andreas/Documents/KiCad/libraries/ESP32_Devkit_38Pins.pretty)(options "")(descr ""))
+)
