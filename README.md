@@ -45,7 +45,7 @@ The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter (D24V10F5, https:
 
 The ADC of the ESP32 is a bit difficult to handle. You have to set the calibration information in the code according to the real values of the resistors at the ADC input of the ESP 32 (e.g. 15 for 100K / 27K which gives a range from 0 to 15 Volt).
 
-Schematics and PCB details are in the KiCAD folder. The board can also be ordered at Aisler.net: https://aisler.net/p/DNXXRLFU
+Schematics and PCB details are in the KiCAD folder (to allow modification). The board can also be ordered at Aisler.net: https://aisler.net/p/DNXXRLFU
 
 ![Schematics](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/KiCAD/ESP32WifiAisTempVolt2/ESP32WifiAisTempVolt2.png)
 
