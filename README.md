@@ -68,13 +68,15 @@ Fridge temperature is also shown with a nice web gauge:
 - Diode 1N4001 [Link](https://www.reichelt.com/de/en/rectifier-diode-do41-50-v-1-a-1n-4001-p1723.html?&nbc=1)
 - Push button [Link](https://www.reichelt.de/miniatur-drucktaster-0-5a-24vac-1x-ein-rt-t-250a-rt-p31772.html?&trstct=pol_12&nbc=1)
 - DS18B20 [Link](https://www.reichelt.com/shelly-temperatur-sensor-ds18b20-shelly-ds18b20-p287127.html?&trstct=pos_1&nbc=1)
-- Connector 3-pol [Link](https://www.reichelt.com/de/en/3-pin-terminal-strip-spacing-3-5-akl-059-03-p36599.html?&nbc=1)
+- Connector 3-pin [Link](https://www.reichelt.de/de/en/3-pin-terminal-strip-spacing-5-08-akl-101-03-p36606.html?&nbc=1)
 - Connector 2-pin [Link](https://www.reichelt.de/de/en/2-pin-terminal-strip-spacing-5-08-akl-101-02-p36605.html?&nbc=1)
 - Housing [Link](https://www.reichelt.de/de/en/plastic-housing-series-1591-57-x-87-x-36-mm-black-1591xxlsbk-p221267.html?&nbc=1)
 
 
 
 # Updates:
+06.11.20: Version 1.3: Changed PCB layout to version 1.1. Larger terminal blocks and different transistor footprints for easy soldering.
+
 01.11.20: Version 1.3: Added KiCAD files.
 
 04.08.20: Version 1.3: Changed CAN_TX to 5. Added WLAN client mode. Store last Node Address.
