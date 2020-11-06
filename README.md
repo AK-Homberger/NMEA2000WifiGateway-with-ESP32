@@ -75,26 +75,15 @@ Fridge temperature is also shown with a nice web gauge:
 
 
 # Updates:
-06.11.20: Version 1.3: Changed PCB layout to version 1.1. Larger terminal blocks and different transistor footprints for easy soldering.
-
-01.11.20: Version 1.3: Added KiCAD files.
-
-04.08.20: Version 1.3: Changed CAN_TX to 5. Added WLAN client mode. Store last Node Address.
-
-24.07.20: Version 1.2: Fixed AP setting problem (sometimes 192.168.4.1 was set after reboot).
-
-23.07.20: Version 1.1: Moved to new JSON library version 6.x.x.
-
-23.07.20: Version 1.0: Changed task 0 priority to 0 (see Issues) and corrected TWA calculation.
-
-11.12.19: Version 0.9: Added CAN pin definition in code. No need to change settings in include file of library.
-
-17.10.19: Version 0.8. Increase JSON buffer improved ID calculation.
-
-14.10.19: Version 0.7. Added JSON interface on port 90. Added unique ID.
-
-16.09.19: Added GGA sentence in N2kDataToNMEA0183.cpp
-
-03.08.19: Version 0.4. Added rudder, log information. Calculate TWS/TWD from apparent wind, heading and COG. Added web gauge for fridge temperature (web browser, port 80).
-
-23.07.19: Version 0.2 fixes the full AIS message forwarding issue. I'm now using the GetMessage function from the MNEA0183 library.
+- 06.11.20: Version 1.3: Changed PCB layout to version 1.1. Larger terminal blocks and different transistor footprints for easy soldering.
+- 01.11.20: Version 1.3: Added KiCAD files.
+- 04.08.20: Version 1.3: Changed CAN_TX to 5. Added WLAN client mode. Store last Node Address.
+- 24.07.20: Version 1.2: Fixed AP setting problem (sometimes 192.168.4.1 was set after reboot).
+- 23.07.20: Version 1.1: Moved to new JSON library version 6.x.x.
+- 23.07.20: Version 1.0: Changed task 0 priority to 0 (see Issues) and corrected TWA calculation.
+- 11.12.19: Version 0.9: Added CAN pin definition in code. No need to change settings in include file of library.
+- 17.10.19: Version 0.8. Increase JSON buffer improved ID calculation.
+- 14.10.19: Version 0.7. Added JSON interface on port 90. Added unique ID.
+- 16.09.19: Added GGA sentence in N2kDataToNMEA0183.cpp
+- 03.08.19: Version 0.4. Added rudder, log information. Calculate TWS/TWD from apparent wind, heading and COG. Added web gauge for fridge temperature (web browser, port 80).
+- 23.07.19: Version 0.2 fixes the full AIS message forwarding issue. I'm now using the GetMessage function from the MNEA0183 library.
