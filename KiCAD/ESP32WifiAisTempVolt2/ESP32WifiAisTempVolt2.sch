@@ -82,7 +82,7 @@ U 1 1 5F9B39F2
 P 1150 1500
 F 0 "J1" H 1068 1717 50  0000 C CNN
 F 1 "Power" H 1068 1626 50  0000 C CNN
-F 2 "Connector_Wago:Wago_734-132_1x02_P3.50mm_Vertical" H 1150 1500 50  0001 C CNN
+F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" H 1150 1500 50  0001 C CNN
 F 3 "~" H 1150 1500 50  0001 C CNN
 	1    1150 1500
 	-1   0    0    -1  
@@ -23849,7 +23849,7 @@ U 1 1 5F9EEC22
 P 1950 3800
 F 0 "Q2" H 2141 3846 50  0000 L CNN
 F 1 "BC547" H 2141 3755 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 2150 3725 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 2150 3725 50  0001 L CIN
 F 3 "http://www.fairchildsemi.com/ds/BC/BC547.pdf" H 1950 3800 50  0001 L CNN
 	1    1950 3800
 	1    0    0    -1  
@@ -23872,7 +23872,7 @@ U 1 1 5F9F7F7B
 P 1150 3800
 F 0 "J3" H 1068 4017 50  0000 C CNN
 F 1 "AIS" H 1068 3926 50  0000 C CNN
-F 2 "Connector_Wago:Wago_734-132_1x02_P3.50mm_Vertical" H 1150 3800 50  0001 C CNN
+F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" H 1150 3800 50  0001 C CNN
 F 3 "~" H 1150 3800 50  0001 C CNN
 	1    1150 3800
 	-1   0    0    -1  
@@ -23902,7 +23902,7 @@ U 1 1 5FA0C9FF
 P 1150 4900
 F 0 "J4" H 1068 5217 50  0000 C CNN
 F 1 "DS18B20" H 1068 5126 50  0000 C CNN
-F 2 "Connector_Wago:Wago_734-133_1x03_P3.50mm_Vertical" H 1150 4900 50  0001 C CNN
+F 2 "TerminalBlock:TerminalBlock_bornier-3_P5.08mm" H 1150 4900 50  0001 C CNN
 F 3 "~" H 1150 4900 50  0001 C CNN
 	1    1150 4900
 	-1   0    0    -1  
@@ -24027,7 +24027,7 @@ U 1 1 5F2980D3
 P 5350 5450
 F 0 "Q1" H 5541 5496 50  0000 L CNN
 F 1 "BC547" H 5541 5405 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 5550 5375 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 5550 5375 50  0001 L CIN
 F 3 "http://www.fairchildsemi.com/ds/BC/BC547.pdf" H 5350 5450 50  0001 L CNN
 	1    5350 5450
 	-1   0    0    -1  
