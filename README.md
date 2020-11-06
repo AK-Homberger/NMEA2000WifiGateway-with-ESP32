@@ -69,11 +69,11 @@ Fridge temperature is also shown with a nice web gauge:
 - R5 Resistor 33 KOhm [Link](https://www.reichelt.de/de/en/carbon-film-resistor-1-4-w-5-33-kohm-1-4w-33k-p1412.html?&nbc=1)
 - Q1, Q2 Transistor BC547 [Link](https://www.reichelt.de/de/en/small-signal-transistors-npn-to-92-45-v-rnd-bc547-p223356.html?&nbc=1)
 - D1 Diode 1N4001 [Link](https://www.reichelt.com/de/en/rectifier-diode-do41-50-v-1-a-1n-4001-p1723.html?&nbc=1)
-- D2 iode 1N4148 [Link](https://www.reichelt.de/schalt-diode-100-v-150-ma-do-35-1n-4148-p1730.html?search=1n4148)
+- D2 Diode 1N4148 [Link](https://www.reichelt.de/schalt-diode-100-v-150-ma-do-35-1n-4148-p1730.html?search=1n4148)
 - SW1 Push button [Link](https://www.reichelt.de/miniatur-drucktaster-0-5a-24vac-1x-ein-rt-t-250a-rt-p31772.html?&trstct=pol_12&nbc=1)
 - DS18B20 [Link](https://www.reichelt.com/shelly-temperatur-sensor-ds18b20-shelly-ds18b20-p287127.html?&trstct=pos_1&nbc=1)
 - J4 Connector 3-pin [Link](https://www.reichelt.de/de/en/3-pin-terminal-strip-spacing-5-08-akl-101-03-p36606.html?&nbc=1)
-- J1, J3Connector 2-pin [Link](https://www.reichelt.de/de/en/2-pin-terminal-strip-spacing-5-08-akl-101-02-p36605.html?&nbc=1)
+- J1, J3 Connector 2-pin [Link](https://www.reichelt.de/de/en/2-pin-terminal-strip-spacing-5-08-akl-101-02-p36605.html?&nbc=1)
 - Housing [Link](https://www.reichelt.de/de/en/plastic-housing-series-1591-57-x-87-x-36-mm-black-1591xxlsbk-p221267.html?&nbc=1)
 
 
