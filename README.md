@@ -51,6 +51,8 @@ Schematics and PCB details are in the KiCAD folder (to allow modifications). The
 
 ![PCB](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/KiCAD/ESP32WifiAisTempVolt2/ESP32WifiAisTempVolt2-PCB.png)
 
+Be careful with placing the the ESP32 on the PCB. The USB connector has to be on the right side.
+
 Fridge temperature is also shown with a nice web gauge:
 
 ![TempGauge](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/TempGauge.png)
