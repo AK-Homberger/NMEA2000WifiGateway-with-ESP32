@@ -531,6 +531,7 @@ void loop() {
 
   int SourceAddress = NMEA2000.GetN2kSource();
   if (SourceAddress != NodeAddress) { // Save potentially changed Source Address to NVS memory
+    NodeAddress = SourceAddress;      // Set new Node Address (to save only once)
     preferences.begin("nvs", false);
     preferences.putInt("LastNodeAddress", SourceAddress);
     preferences.end();
