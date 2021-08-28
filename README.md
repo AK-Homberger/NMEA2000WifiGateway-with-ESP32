@@ -73,7 +73,7 @@ It then looks like the picture. Then measure to be on the safe side. Without a 1
 - Board [Link](https://aisler.net/p/DNXXRLFU)
 - U1 ESP32 [Link](https://www.amazon.de/AZDelivery-NodeMCU-Development-Nachfolgermodell-ESP8266/dp/B071P98VTG/ref=sxts_sxwds-bia-wc-drs3_0?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&cv_ct_cx=ESP32&dchild=1&keywords=ESP32) 
 - J5 SN65HVD230 [Link](https://eckstein-shop.de/Waveshare-SN65HVD230-CAN-Board-33V-ESD-protection)
-- J2 D24V10F5 [Link](https://eckstein-shop.de/Pololu-5V-1A-Step-Down-Spannungsregler-D24V10F5)
+- J2 D24V10F5 [Link](https://eckstein-shop.de/Pololu5V2C1AStep-DownSpannungsreglerD24V10F5)
 - B1 Buzzer [Link](https://www.reichelt.de/de/en/developer-boards-active-piezo-buzzer-module-debo-piezo-p239111.html?&nbc=1)
 - R1 Resistor 3,3 KOhm [Link](https://www.reichelt.de/de/en/carbon-film-resistor-1-4-w-5-3-3-ohm-1-4w-3-3-p1396.html?&nbc=1)
 - R2 Resistor 100 KOhm [Link](https://www.reichelt.de/de/en/carbon-film-resistor-1-4w-5-100-kilo-ohms-1-4w-100k-p1337.html?&nbc=1)
