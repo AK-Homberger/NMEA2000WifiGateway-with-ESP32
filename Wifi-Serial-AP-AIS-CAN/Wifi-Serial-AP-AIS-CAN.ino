@@ -48,8 +48,8 @@
 const char *AP_ssid = "MyESP32";  // ESP32 as AP
 const char *CL_ssid = "MyWLAN";   // ESP32 as client in network
 
-const char *AP_password = "appassw";   // AP password
-const char *CL_password = "clientpw";  // Client password
+const char *AP_password = "appassword";   // AP password. Must be longer than 7 characters
+const char *CL_password = "clientpassword";  // Client password
 
 // Put IP address details here
 IPAddress AP_local_ip(192, 168, 15, 1);  // Static address for AP
