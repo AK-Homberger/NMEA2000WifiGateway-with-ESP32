@@ -45,6 +45,36 @@ The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter (D24V10F5, https:
 
 The ADC of the ESP32 is a bit difficult to handle. You have to set the calibration information in the code according to the real values of the resistors at the ADC input of the ESP 32 (e.g. 15 for 100K / 27K which gives a range from 0 to 15 Volt).
 
+# Configuration
+To adjust the program to your need please change the following values in the code:
+
+```
+#define ENABLE_DEBUG_LOG 0 // Debug log, set to 1 to enable AIS forward on USB-Serial / 2 for ADC voltage to support calibration
+#define UDP_Forwarding 0   // Set to 1 for forwarding AIS from serial2 to UDP brodcast
+#define HighTempAlarm 12   // Alarm level for fridge temperature (higher)
+#define LowVoltageAlarm 11 // Alarm level for battery voltage (lower)
+
+#define ADC_Calibration_Value 34.3 // The real value depends on the true resistor values for the ADC input (100K / 27 K)
+
+#define WLAN_CLIENT 0  // Set to 1 to enable client network. 0 to act as AP only
+
+// Wifi cofiguration Client and Access Point
+const char *AP_ssid = "MyESP32";  // ESP32 as AP
+const char *CL_ssid = "MyWLAN";   // ESP32 as client in network
+
+const char *AP_password = "appassword";   // AP password. Must be longer than 7 characters
+const char *CL_password = "clientpassword";  // Client password
+
+// Put IP address details here
+IPAddress AP_local_ip(192, 168, 15, 1);  // Static address for AP
+IPAddress AP_gateway(192, 168, 15, 1);
+IPAddress AP_subnet(255, 255, 255, 0);
+
+IPAddress CL_local_ip(192, 168, 1, 10);  // Static address for Client Network. Please adjust to your AP IP and DHCP range!
+IPAddress CL_gateway(192, 168, 1, 1);
+IPAddress CL_subnet(255, 255, 255, 0);
+```
+
 Schematics and PCB details are in the KiCAD folder (to allow modifications). The board can also be ordered at Aisler.net: https://aisler.net/p/DNXXRLFU
 
 ![Schematics](https://github.com/AK-Homberger/NMEA2000WifiGateway-with-ESP32/blob/master/KiCAD/ESP32WifiAisTempVolt2/ESP32WifiAisTempVolt2.png)
